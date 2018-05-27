@@ -4,17 +4,18 @@ import { List, AutoSizer } from 'react-virtualized';
 
 const ChannelsListWrapper = styled.div`
   height: 100%;
-  .row, .noRow {
+  .row,
+  .noRow {
     padding: 0 25px;
     font-size: 1.25rem;
     display: flex;
     align-items: center;
     text-align: center;
     border-radius: 6px;
-    border: 1px solid #DDD;
+    border: 1px solid #ddd;
     &:hover {
       cursor: pointer;
-      background-color: #039BE5;
+      background-color: #039be5;
     }
   }
   .bold {
@@ -24,12 +25,12 @@ const ChannelsListWrapper = styled.div`
     height: 50px;
   }
   .isScrollingPlaceholder {
-    color: #DDD;
+    color: #ddd;
     font-style: italic;
   }
 `;
 
-const _rowRenderer = (channelsList, switchChannel, { index, isScrolling, key, style }) => (
+const _rowRenderer = (channelsList, switchChannel, { index, isScrolling, key, style }) =>
   isScrolling ? (
     <div className="row isScrollingPlaceholder" key={key} style={style}>
       Scrolling...
@@ -38,14 +39,9 @@ const _rowRenderer = (channelsList, switchChannel, { index, isScrolling, key, st
     <div className="row" key={key} style={style} onClick={() => switchChannel(channelsList[index].id)}>
       {channelsList[index].name}:{channelsList[index].id}
     </div>
-  )
-);
+  );
 
-const _noRowRenderer = () => (
-  <div className="noRow bold">
-    No Channels Found
-  </div>
-);
+const _noRowRenderer = () => <div className="noRow bold">No Channels Found</div>;
 
 const ChannelsList = ({ channelsList, switchChannel }) => (
   <ChannelsListWrapper>
@@ -58,8 +54,8 @@ const ChannelsList = ({ channelsList, switchChannel }) => (
           rowHeight={50}
           rowRenderer={(...args) => _rowRenderer(channelsList, switchChannel, ...args)}
           noRowsRenderer={_noRowRenderer}
-          width={width}>
-        </List>
+          width={width}
+        />
       )}
     </AutoSizer>
   </ChannelsListWrapper>

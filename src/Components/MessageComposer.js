@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Form, TextArea, Icon } from 'semantic-ui-react'
+import { Form, TextArea, Icon } from 'semantic-ui-react';
 
 const MessageComposerWrapper = styled.div`
   height: 82px;
@@ -16,7 +16,7 @@ const MessageComposerWrapper = styled.div`
 
 class MessageComposer extends Component {
   state = {
-    messageComposed: ''
+    messageComposed: '',
   };
 
   constructor(props) {
@@ -29,7 +29,7 @@ class MessageComposer extends Component {
   _handleChange(e) {
     e.preventDefault();
     this.setState({
-      messageComposed: e.target.value
+      messageComposed: e.target.value,
     });
   }
 
@@ -37,12 +37,12 @@ class MessageComposer extends Component {
     e.preventDefault();
     this.props.addMessage(this.state.messageComposed);
     this.setState({
-      messageComposed: ''
+      messageComposed: '',
     });
   }
 
-  _keyPress(e){
-    if(e.keyCode === 13){
+  _keyPress(e) {
+    if (e.keyCode === 13) {
       this._onSubmit(e);
     }
   }
@@ -51,8 +51,23 @@ class MessageComposer extends Component {
     return (
       <MessageComposerWrapper>
         <Form>
-          <TextArea placeholder='Compose' disabled={!this.props.currentChannel} style={{ height: 82, width: 'calc(100% - 80px)', borderRadius: 4, resize: 'none' }} value={this.state.messageComposed} onKeyDown={this._keyPress} onChange={this._handleChange} />
-          <Icon className="message-composer-icon" name="send outline" size="big" color="blue" circular={true} bordered={true} onClick={this._onSubmit} />
+          <TextArea
+            placeholder="Compose"
+            disabled={!this.props.currentChannel}
+            style={{ height: 82, width: 'calc(100% - 80px)', borderRadius: 4, resize: 'none' }}
+            value={this.state.messageComposed}
+            onKeyDown={this._keyPress}
+            onChange={this._handleChange}
+          />
+          <Icon
+            className="message-composer-icon"
+            name="send outline"
+            size="big"
+            color="blue"
+            circular={true}
+            bordered={true}
+            onClick={this._onSubmit}
+          />
         </Form>
       </MessageComposerWrapper>
     );

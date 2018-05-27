@@ -1,7 +1,17 @@
 import constants from '../Constants';
 
-const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CONNECT, DISCONNECT, CONNECTION_REQUEST,
-  CREATE_USER_SUCCESS, CREATE_USER_FAILURE, CREATE_USER, RESET_STORE } = constants;
+const {
+  LOGIN_USER,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  CONNECT,
+  DISCONNECT,
+  CONNECTION_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE,
+  CREATE_USER,
+  RESET_STORE,
+} = constants;
 
 const defaultState = {
   user: null,
@@ -10,7 +20,7 @@ const defaultState = {
   name: null,
   createUserStarted: false,
   loginStarted: false,
-  credentials: null
+  credentials: null,
 };
 
 export default (state = defaultState, action) => {
@@ -18,37 +28,37 @@ export default (state = defaultState, action) => {
     case LOGIN_USER:
       return {
         ...state,
-        loginStarted: true
+        loginStarted: true,
       };
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
         credentials: action.payload,
-        loginStarted: false
+        loginStarted: false,
       };
     case LOGIN_USER_FAILURE:
       return {
         ...state,
-        loginStarted: false
+        loginStarted: false,
       };
     case CONNECT:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case DISCONNECT:
       return {
         ...state,
-        user: null
+        user: null,
       };
     case CONNECTION_REQUEST:
       return {
-        ...state
+        ...state,
       };
     case CREATE_USER:
       return {
         ...state,
-        createUserStarted: true
+        createUserStarted: true,
       };
     case CREATE_USER_SUCCESS:
       const { username, name } = action.payload;
@@ -56,18 +66,18 @@ export default (state = defaultState, action) => {
         ...state,
         createUserStarted: false,
         username,
-        name
+        name,
       };
     case CREATE_USER_FAILURE:
       return {
         ...state,
         createUserStarted: false,
         username: null,
-        name: null
+        name: null,
       };
     case RESET_STORE:
       return defaultState;
     default:
       return state;
   }
-}
+};

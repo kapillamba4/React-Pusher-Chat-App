@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Icon, Popup } from 'semantic-ui-react'
+import { Button, Icon, Popup } from 'semantic-ui-react';
 import ChannelModal from './ChannelModal';
 import { Link } from 'react-router-dom';
 
 const ChatHeaderWrapper = styled.div`
   height: 58px;
   background-color: white;
-  display:flex;
+  display: flex;
   align-items: center;
   padding: 6px;
   .ui.primary.button {
@@ -15,7 +15,8 @@ const ChatHeaderWrapper = styled.div`
   }
   .right-chat-header {
     margin-left: auto;
-    .user-avatar-chat-header, .copy-channel-id-chat-header {
+    .user-avatar-chat-header,
+    .copy-channel-id-chat-header {
       display: inline-block;
       margin: 12px;
       &:hover {
@@ -28,7 +29,7 @@ const ChatHeaderWrapper = styled.div`
   }
   span {
     font-size: 2rem;
-    color: #DDD;
+    color: #ddd;
     font-style: italic;
   }
 `;
@@ -36,22 +37,32 @@ const ChatHeaderWrapper = styled.div`
 const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username, name, resetStore }) => (
   <ChatHeaderWrapper>
     <div className="left-chat-header">
-      { !user && <span>Welcome</span> }
-      { user && !currentChannel && <span>Creating a channel please wait...</span> }
-      { user && currentChannel && 
-        <React.Fragment>
-        <span>{currentChannel.name}:<span id="channelId">{currentChannel.id}</span></span>
-        <Popup
-          trigger={<Icon className="copy-channel-id-chat-header" name="copy" color="blue" circular={true} bordered={true}/>}
-          content="Copy Channel Id"/>
-        </React.Fragment>
-      }
+      {!user && <span>Welcome</span>}
+      {user && !currentChannel && <span>Creating a channel please wait...</span>}
+      {user &&
+        currentChannel && (
+          <React.Fragment>
+            <span>
+              {currentChannel.name}:<span id="channelId">{currentChannel.id}</span>
+            </span>
+            <Popup
+              trigger={
+                <Icon
+                  className="copy-channel-id-chat-header"
+                  name="copy"
+                  color="blue"
+                  circular={true}
+                  bordered={true}
+                />
+              }
+              content="Copy Channel Id"
+            />
+          </React.Fragment>
+        )}
     </div>
     <div className="right-chat-header">
-      { !user &&
-        <span>Please Wait...</span>
-      }
-      { user &&
+      {!user && <span>Please Wait...</span>}
+      {user && (
         <ChannelModal
           triggerBtn={<Button primary>Create a Channel</Button>}
           header="Create a new Channel"
@@ -59,10 +70,10 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
           content="A new Channel will be created with given name, share it's id with others to allow them to join"
           handleSubmit={createChannel}
           negativeBtnText="Exit"
-          positiveBtnText="Submit">
-        </ChannelModal>
-      }
-      { user &&
+          positiveBtnText="Submit"
+        />
+      )}
+      {user && (
         <ChannelModal
           triggerBtn={<Button primary>Join a Channel</Button>}
           header="Join a new Channel"
@@ -70,18 +81,34 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
           content="Messages will be fetched from new channel joined, and you will be able to add new messages to the channel"
           handleSubmit={joinChannel}
           negativeBtnText="Exit"
-          positiveBtnText="Submit">
-        </ChannelModal>
-      }
-      { user &&
-        <Button primary onClick={resetStore}>Logout</Button>
-      }
-      { user &&
+          positiveBtnText="Submit"
+        />
+      )}
+      {user && (
+        <Button primary onClick={resetStore}>
+          Logout
+        </Button>
+      )}
+      {user && (
         <Popup
-          trigger={<Icon className="user-avatar-chat-header" name="user circle outline" size="large" color="blue" circular={true} bordered={true}/>}
-          content={<span className="bold">{name}@{username}</span>}/>
-      }
-      </div>
+          trigger={
+            <Icon
+              className="user-avatar-chat-header"
+              name="user circle outline"
+              size="large"
+              color="blue"
+              circular={true}
+              bordered={true}
+            />
+          }
+          content={
+            <span className="bold">
+              {name}@{username}
+            </span>
+          }
+        />
+      )}
+    </div>
   </ChatHeaderWrapper>
 );
 

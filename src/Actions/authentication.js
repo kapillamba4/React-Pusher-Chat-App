@@ -1,57 +1,71 @@
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 import constants from '../Constants/index';
 import axios from 'axios';
-import {ChatManager, TokenProvider} from "@pusher/chatkit";
+import { ChatManager, TokenProvider } from '@pusher/chatkit';
 
-const chatManager = (userId) => (new ChatManager({
-  instanceLocator: "v1:us1:3d6a9494-51ec-4bd8-98b7-237759fd1b45",
-  userId,
-  tokenProvider: new TokenProvider({
-    url: `https://us1.pusherplatform.io/services/chatkit_token_provider/v1/3d6a9494-51ec-4bd8-98b7-237759fd1b45/token`
-  })
-}));
+const {
+  LOGIN_USER,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  CONNECT,
+  DISCONNECT,
+  CONNECTION_REQUEST,
+  CREATE_USER_FAILURE,
+  CREATE_USER_SUCCESS,
+  CREATE_USER,
+  RESET_STORE,
+  INSTANCE_LOCATOR,
+  TOKEN_PROVIDER_URL,
+  BASE_SERVER_URL,
+} = constants;
 
-const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
-  CONNECT, DISCONNECT, CONNECTION_REQUEST,
-  CREATE_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER, RESET_STORE} = constants;
+const chatManager = userId =>
+  new ChatManager({
+    instanceLocator: INSTANCE_LOCATOR,
+    userId,
+    tokenProvider: new TokenProvider({
+      url: TOKEN_PROVIDER_URL,
+    }),
+  });
 
 export default {
-  checkAuth: (username) => {
-    return (dispatch) => {
+  checkAuth: username => {
+    return dispatch => {
       // const username = cookie.load('username');
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        username
+        username,
       });
-    }
+    };
   },
-  login: (dispatch) => {
+  login: dispatch => {
     dispatch({ type: LOGIN_USER });
-
   },
   createUser: ({ name, username }) => {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({ type: CREATE_USER });
 
-      axios.post(`https://react-test-1.glitch.me/create/user`, {
-        id: username,
-        name: name
-      })
-        .then((response) => {
-          console.log(response);
-          dispatch({ type: CREATE_USER_SUCCESS, payload: { name, username } })
+      axios
+        .post(`${BASE_SERVER_URL}create/user`, {
+          id: username,
+          name: name,
         })
-        .catch((error) => {
+        .then(response => {
+          console.log(response);
+          dispatch({ type: CREATE_USER_SUCCESS, payload: { name, username } });
+        })
+        .catch(error => {
           console.error(error);
-          dispatch({ type: CREATE_USER_FAILURE })
+          dispatch({ type: CREATE_USER_FAILURE });
         });
-    }
+    };
   },
-  connect: (userId) => {
-    return (dispatch) => {
+  connect: userId => {
+    return dispatch => {
       dispatch({ type: CONNECTION_REQUEST });
 
-      chatManager(userId).connect()
+      chatManager(userId)
+        .connect()
         .then(currentUser => {
           console.log(`Successful connection ${currentUser}`);
           dispatch({ type: CONNECT, payload: currentUser });
@@ -60,15 +74,14 @@ export default {
           console.error(`Error on connection ${err}`);
           dispatch({ type: DISCONNECT });
         });
-    }
+    };
   },
-  disconnect: (dispatch) => {
+  disconnect: dispatch => {
     dispatch({ type: DISCONNECT });
   },
   resetStoreAuth: () => {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({ type: RESET_STORE });
-    }
-  }
-}
-
+    };
+  },
+};

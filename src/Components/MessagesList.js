@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {List, AutoSizer} from 'react-virtualized';
+import { List, AutoSizer } from 'react-virtualized';
 
 const MessagesListWrapper = styled.div`
   height: calc(100% - 140px);
-  background-color: #EEF5F9;
-  .row, .noRow {
+  background-color: #eef5f9;
+  .row,
+  .noRow {
     padding: 0 25px;
     display: flex;
     align-items: center;
-    border: 1px solid #DDD;
+    border: 1px solid #ddd;
   }
   .bold {
     font-weight: 600;
@@ -18,12 +19,12 @@ const MessagesListWrapper = styled.div`
     height: 50px;
   }
   .isScrollingPlaceholder {
-    color: #DDD;
+    color: #ddd;
     font-style: italic;
   }
 `;
 
-const _rowRenderer = (user, messages, { index, isScrolling, key, style }) => (
+const _rowRenderer = (user, messages, { index, isScrolling, key, style }) =>
   isScrolling ? (
     <div className="row isScrollingPlaceholder" key={key} style={style}>
       Scrolling...
@@ -32,19 +33,14 @@ const _rowRenderer = (user, messages, { index, isScrolling, key, style }) => (
     <div className="row" key={key} style={style}>
       <span className="bold">{messages[index].senderId}</span>: {messages[index].text}
     </div>
-  )
-);
+  );
 
-const _noRowRenderer = () => (
-  <div className="noRow bold">
-    No Messages Found
-  </div>
-);
+const _noRowRenderer = () => <div className="noRow bold">No Messages Found</div>;
 
 const MessagesList = ({ messages, user }) => (
   <MessagesListWrapper>
     <AutoSizer>
-      {({height, width}) => (
+      {({ height, width }) => (
         <List
           height={height}
           overscanRowCount={10}
@@ -52,8 +48,8 @@ const MessagesList = ({ messages, user }) => (
           rowHeight={50}
           rowRenderer={(...args) => _rowRenderer(user, messages, ...args)}
           noRowsRenderer={_noRowRenderer}
-          width={width}>
-        </List>
+          width={width}
+        />
       )}
     </AutoSizer>
   </MessagesListWrapper>

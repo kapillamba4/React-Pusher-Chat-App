@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ChatHeader from '../Components/ChatHeader';
 import MessageComposer from '../Components/MessageComposer';
 import ChannelsList from '../Components/ChannelsList';
-import MessagesList from "../Components/MessagesList";
+import MessagesList from '../Components/MessagesList';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actions from '../Actions';
@@ -23,14 +23,14 @@ const ChatAppWrapper = styled.div`
     width: 300px;
     height: 100%;
     background-color: white;
-    border: 1px solid #DDD;
+    border: 1px solid #ddd;
     border-radius: 6px;
     overflow: hidden;
   }
   .chat-right-sidebar {
     width: 100%;
     height: 100%;
-    border: 1px solid #DDD;
+    border: 1px solid #ddd;
     border-radius: 6px;
     overflow: hidden;
   }
@@ -65,36 +65,36 @@ class ChatApp extends Component {
           roomId: this.props.currentChannel.id,
           hooks: {
             onNewMessage: message => {
-              const {createdAt, senderId, text, roomId} = message;
+              const { createdAt, senderId, text, roomId } = message;
               if (senderId !== this.props.user.id && roomId === this.props.currentChannel.id) {
                 this.props.receiveMessage({
                   createdAt,
                   senderId,
-                  text
+                  text,
                 });
               }
             },
-            onUserJoined: (user) => {
+            onUserJoined: user => {
               this.props.userJoined(user);
             },
-            onUserLeft: (user) => {
+            onUserLeft: user => {
               this.props.userLeft(user);
             },
-            onUserStartedTyping: (user) => {
+            onUserStartedTyping: user => {
               this.props.userStartedTyping(user);
             },
-            onUserStoppedTyping: (user) => {
+            onUserStoppedTyping: user => {
               this.props.userStoppedTyping(user);
-            }
+            },
           },
-          messageLimit: 0
+          messageLimit: 0,
         });
       }
     }
   }
 
   getSessionData(props) {
-    return { user: props.user, roomId: (props.currentChannel ? props.currentChannel.id : undefined)};
+    return { user: props.user, roomId: props.currentChannel ? props.currentChannel.id : undefined };
   }
 
   componentWillReceiveProps(props) {
@@ -127,25 +127,41 @@ class ChatApp extends Component {
     return (
       <ChatAppWrapper>
         <div className="chat-left-sidebar">
-          <ChannelsList channelsList={this.props.channelsList} switchChannel={(channelId) => this.props.changeChannel(channelId, this.getSessionData(this.props))} />
+          <ChannelsList
+            channelsList={this.props.channelsList}
+            switchChannel={channelId => this.props.changeChannel(channelId, this.getSessionData(this.props))}
+          />
         </div>
         <div className="chat-right-sidebar">
-          <ChatHeader createChannel={(channelName) => this.props.createChannel(channelName, this.getSessionData(this.props))}
-                      joinChannel={(channelId) => this.props.changeChannel(channelId, this.getSessionData(this.props))}
-                      currentChannel={this.props.currentChannel}
-                      username={this.props.username}
-                      resetStore={() => { this.props.resetStoreAuth(); this.props.resetStoreMessage(); }}
-                      name={this.props.name}
-                      user={this.props.user}/>
+          <ChatHeader
+            createChannel={channelName => this.props.createChannel(channelName, this.getSessionData(this.props))}
+            joinChannel={channelId => this.props.changeChannel(channelId, this.getSessionData(this.props))}
+            currentChannel={this.props.currentChannel}
+            username={this.props.username}
+            resetStore={() => {
+              this.props.resetStoreAuth();
+              this.props.resetStoreMessage();
+            }}
+            name={this.props.name}
+            user={this.props.user}
+          />
           <MessagesList messages={this.props.messages} user={this.props.user} />
-          <MessageComposer typing={this.props.typing} currentChannel={this.props.currentChannel} addMessage={(message) => this.props.addMessage(message, this.getSessionData(this.props))}/>
+          <MessageComposer
+            typing={this.props.typing}
+            currentChannel={this.props.currentChannel}
+            addMessage={message => this.props.addMessage(message, this.getSessionData(this.props))}
+          />
         </div>
       </ChatAppWrapper>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => ({ ...state.message, ...state.authentication });
-const matchDispatchToProps = (dispatch) => bindActionCreators({ ...actions.message, ...actions.authentication }, dispatch);
+const mapStateToProps = state => ({ ...state.message, ...state.authentication });
+const matchDispatchToProps = dispatch =>
+  bindActionCreators({ ...actions.message, ...actions.authentication }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(ChatApp);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps,
+)(ChatApp);

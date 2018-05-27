@@ -31,5 +31,9 @@ export default {
   CREATE_USER: 'CREATE_USER',
   USER_JOINED: 'USER_JOINED',
   USER_LEFT: 'USER_LEFT',
-  RESET_STORE: 'RESET_STORE'
+  RESET_STORE: 'RESET_STORE',
+  INSTANCE_LOCATOR: 'v1:us1:3d6a9494-51ec-4bd8-98b7-237759fd1b45',
+  TOKEN_PROVIDER_URL:
+    'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/3d6a9494-51ec-4bd8-98b7-237759fd1b45/token',
+  BASE_SERVER_URL: 'https://react-test-1.glitch.me/',
 };

@@ -4,5 +4,5 @@ import monitorConnection from './monitorConnection';
 export default {
   authentication,
   message,
-  monitorConnection
+  monitorConnection,
 };

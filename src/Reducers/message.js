@@ -1,11 +1,28 @@
 import constants from '../Constants';
 
-const { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE,
-  CHANGE_CHANNEL, CHANGE_CHANNEL_SUCCESS, CHANGE_CHANNEL_FAILURE,
-  LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES, LOAD_MESSAGES_FAILURE,
-  LOAD_CHANNELS, LOAD_CHANNELS_SUCCESS, LOAD_CHANNELS_FAILURE, CREATE_CHANNEL,
-  CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE, 
-  TYPING, STOP_TYPING, USER_LEFT, USER_JOINED, RESET_STORE } = constants;
+const {
+  ADD_MESSAGE,
+  ADD_MESSAGE_SUCCESS,
+  ADD_MESSAGE_FAILURE,
+  CHANGE_CHANNEL,
+  CHANGE_CHANNEL_SUCCESS,
+  CHANGE_CHANNEL_FAILURE,
+  LOAD_MESSAGES_SUCCESS,
+  LOAD_MESSAGES,
+  LOAD_MESSAGES_FAILURE,
+  LOAD_CHANNELS,
+  LOAD_CHANNELS_SUCCESS,
+  LOAD_CHANNELS_FAILURE,
+  CREATE_CHANNEL,
+  CREATE_CHANNEL_SUCCESS,
+  CREATE_CHANNEL_FAILURE,
+  RECEIVE_MESSAGE,
+  TYPING,
+  STOP_TYPING,
+  USER_LEFT,
+  USER_JOINED,
+  RESET_STORE,
+} = constants;
 
 const defaultState = {
   addMessageStarted: false,
@@ -17,7 +34,7 @@ const defaultState = {
   channelsList: [],
   usersList: [],
   currentChannel: null,
-  typing: false
+  typing: false,
 };
 
 export default (state = defaultState, action) => {
@@ -25,110 +42,110 @@ export default (state = defaultState, action) => {
     case ADD_MESSAGE:
       return {
         ...state,
-        addMessageStarted: true
+        addMessageStarted: true,
       };
     case ADD_MESSAGE_SUCCESS:
       return {
         ...state,
         messages: [...state.messages, action.payload],
-        addMessageStarted: false
+        addMessageStarted: false,
       };
     case ADD_MESSAGE_FAILURE:
       return {
         ...state,
         messages: [],
-        addMessageStarted: false
+        addMessageStarted: false,
       };
     case CHANGE_CHANNEL:
       return {
         ...state,
-        changeChannelStarted: true
+        changeChannelStarted: true,
       };
     case CHANGE_CHANNEL_SUCCESS:
       return {
         ...state,
         currentChannel: action.payload,
         usersList: [],
-        changeChannelStarted: false
+        changeChannelStarted: false,
       };
     case CHANGE_CHANNEL_FAILURE:
       return {
         ...state,
-        changeChannelStarted: false
+        changeChannelStarted: false,
       };
     case LOAD_CHANNELS:
       return {
         ...state,
-        loadChannelsStarted: true
+        loadChannelsStarted: true,
       };
     case LOAD_CHANNELS_SUCCESS:
       return {
         ...state,
         channelsList: action.payload,
-        loadChannelsStarted: false
+        loadChannelsStarted: false,
       };
     case LOAD_CHANNELS_FAILURE:
       return {
         ...state,
         channelsList: [],
-        loadChannelsStarted: false
+        loadChannelsStarted: false,
       };
     case LOAD_MESSAGES:
       return {
         ...state,
-        loadMessagesStarted: true
+        loadMessagesStarted: true,
       };
     case LOAD_MESSAGES_SUCCESS:
       return {
         ...state,
         messages: action.payload,
-        loadMessagesStarted: false
+        loadMessagesStarted: false,
       };
     case LOAD_MESSAGES_FAILURE:
       return {
         ...state,
-        loadMessagesStarted: false
+        loadMessagesStarted: false,
       };
     case CREATE_CHANNEL:
       return {
         ...state,
-        createChannelStarted: true
+        createChannelStarted: true,
       };
     case CREATE_CHANNEL_SUCCESS:
       return {
         ...state,
         channelsList: [action.payload, ...state.channelsList],
-        createChannelStarted: false
+        createChannelStarted: false,
       };
     case CREATE_CHANNEL_FAILURE:
       return {
         ...state,
-        createChannelStarted: false
+        createChannelStarted: false,
       };
     case RECEIVE_MESSAGE:
       return {
         ...state,
-        messages: [...state.messages, action.payload]
+        messages: [...state.messages, action.payload],
       };
     case USER_JOINED:
       return {
         ...state,
-        usersList: [...state.usersList, action.payload]
+        usersList: [...state.usersList, action.payload],
       };
     case USER_LEFT:
       return {
         ...state,
-        usersList: state.usersList.filter(user => user.id !== action.payload.id)
+        usersList: state.usersList.filter(user => user.id !== action.payload.id),
       };
     case TYPING:
       return {
         ...state,
-        typing: true
+        typing: true,
       };
     case STOP_TYPING:
       return {
         ...state,
-        typing: false
+        typing: false,
       };
     case RESET_STORE:
       return defaultState;
