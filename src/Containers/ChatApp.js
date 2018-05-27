@@ -98,6 +98,10 @@ class ChatApp extends Component {
   }
 
   componentWillReceiveProps(props) {
+    if (!props.username && !props.createUserStarted) {
+      window.location.href = '/login';
+    }
+
     const session = this.getSessionData(props);
     if (!this.props.username && props.username) {
       this.props.connect(props.username);
@@ -130,6 +134,7 @@ class ChatApp extends Component {
                       joinChannel={(channelId) => this.props.changeChannel(channelId, this.getSessionData(this.props))}
                       currentChannel={this.props.currentChannel}
                       username={this.props.username}
+                      resetStore={() => { this.props.resetStoreAuth(); this.props.resetStoreMessage(); }}
                       name={this.props.name}
                       user={this.props.user}/>
           <MessagesList messages={this.props.messages} user={this.props.user} />

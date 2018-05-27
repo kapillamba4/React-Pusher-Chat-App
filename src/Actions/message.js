@@ -118,7 +118,7 @@ export default {
       dispatch({ type: STOP_TYPING, payload: user });
     }
   },
-  resetStore: () => {
+  resetStoreMessage: () => {
     return (dispatch) => {
       dispatch({ type: RESET_STORE });
     }

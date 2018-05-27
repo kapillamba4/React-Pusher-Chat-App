@@ -65,7 +65,7 @@ export default {
   disconnect: (dispatch) => {
     dispatch({ type: DISCONNECT });
   },
-  resetStore: () => {
+  resetStoreAuth: () => {
     return (dispatch) => {
       dispatch({ type: RESET_STORE });
     }

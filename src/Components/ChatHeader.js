@@ -33,7 +33,7 @@ const ChatHeaderWrapper = styled.div`
   }
 `;
 
-const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username, name }) => (
+const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username, name, resetStore }) => (
   <ChatHeaderWrapper>
     <div className="left-chat-header">
       { !user && <span>Welcome</span> }
@@ -72,6 +72,9 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
           negativeBtnText="Exit"
           positiveBtnText="Submit">
         </ChannelModal>
+      }
+      { user &&
+        <Button primary onClick={resetStore}>Logout</Button>
       }
       { user &&
         <Popup

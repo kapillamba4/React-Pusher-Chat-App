@@ -1,7 +1,7 @@
 import constants from '../Constants';
 
 const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CONNECT, DISCONNECT, CONNECTION_REQUEST,
-  CREATE_USER_SUCCESS, CREATE_USER_FAILURE, CREATE_USER } = constants;
+  CREATE_USER_SUCCESS, CREATE_USER_FAILURE, CREATE_USER, RESET_STORE } = constants;
 
 const defaultState = {
   user: null,
@@ -61,8 +61,12 @@ export default (state = defaultState, action) => {
     case CREATE_USER_FAILURE:
       return {
         ...state,
-        createUserStarted: false
+        createUserStarted: false,
+        username: null,
+        name: null
       };
+    case RESET_STORE:
+      return defaultState;
     default:
       return state;
   }

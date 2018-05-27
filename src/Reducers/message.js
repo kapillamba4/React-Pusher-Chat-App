@@ -5,7 +5,7 @@ const { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE,
   LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES, LOAD_MESSAGES_FAILURE,
   LOAD_CHANNELS, LOAD_CHANNELS_SUCCESS, LOAD_CHANNELS_FAILURE, CREATE_CHANNEL,
   CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE, 
-  TYPING, STOP_TYPING, USER_LEFT, USER_JOINED } = constants;
+  TYPING, STOP_TYPING, USER_LEFT, USER_JOINED, RESET_STORE } = constants;
 
 const defaultState = {
   addMessageStarted: false,
@@ -130,6 +130,8 @@ export default (state = defaultState, action) => {
         ...state,
         typing: false
       };
+    case RESET_STORE:
+      return defaultState;
     default:
       return state;
   }
