@@ -1,21 +1,63 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ChatApp from "./Containers/ChatApp";
+import styled from 'styled-components';
+import AuthForm from "./Containers/AuthForm";
+import { Switch, Route } from 'react-router-dom';
+import {connect} from "react-redux";
+const AppWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .background-top-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-color: #039BE5;
+    border-bottom: 30px solid #0288D1;
+    transform-origin: 0 0;
+    transform: skewY(-30deg);
+    box-shadow: 0 0 30px #89898a;
+    z-index: -1;
+  }
+  .background-bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 30%;
+    background-color: #039BE5;
+    border-top: 30px solid #0288D1;
+    transform-origin: 100% 100%;
+    transform: skewY(150deg);
+    box-shadow: 0 0 30px #89898a;
+    z-index: -1;
+  }
+`;
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <AppWrapper>
+        <div className="background">
+          <div className="background-top-left">
+          </div>
+          <div className="background-bottom-right">
+          </div>
+        </div>
+        <Switch>
+          <Route exact path='/app' component={ChatApp}/>
+          <Route exact path='/login' component={AuthForm}/>
+          <Route component={AuthForm}/>
+        </Switch>
+      </AppWrapper>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({ ...state.authentication });
+export default connect(mapStateToProps, null)(App);
