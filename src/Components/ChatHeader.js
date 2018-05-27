@@ -15,7 +15,7 @@ const ChatHeaderWrapper = styled.div`
   }
   .right-chat-header {
     margin-left: auto;
-    .user-avatar-chat-header {
+    .user-avatar-chat-header, .copy-channel-id-chat-header {
       display: inline-block;
       margin: 12px;
       &:hover {
@@ -38,7 +38,14 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
     <div className="left-chat-header">
       { !user && <span>Welcome</span> }
       { user && !currentChannel && <span>Creating a channel please wait...</span> }
-      { user && currentChannel && <span>{currentChannel.name}:{currentChannel.id}</span> }
+      { user && currentChannel && 
+        <React.Fragment>
+        <span>{currentChannel.name}:<span id="channelId">{currentChannel.id}</span></span>
+        <Popup
+          trigger={<Icon className="copy-channel-id-chat-header" name="copy" color="blue" circular={true} bordered={true}/>}
+          content="Copy Channel Id"/>
+        </React.Fragment>
+      }
     </div>
     <div className="right-chat-header">
       { !user &&

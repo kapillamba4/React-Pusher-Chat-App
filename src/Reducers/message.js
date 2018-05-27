@@ -4,7 +4,8 @@ const { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE,
   CHANGE_CHANNEL, CHANGE_CHANNEL_SUCCESS, CHANGE_CHANNEL_FAILURE,
   LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES, LOAD_MESSAGES_FAILURE,
   LOAD_CHANNELS, LOAD_CHANNELS_SUCCESS, LOAD_CHANNELS_FAILURE, CREATE_CHANNEL,
-  CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE } = constants;
+  CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE, 
+  TYPING, STOP_TYPING, USER_LEFT, USER_JOINED } = constants;
 
 const defaultState = {
   addMessageStarted: false,
@@ -14,7 +15,9 @@ const defaultState = {
   createChannelStarted: false,
   messages: [],
   channelsList: [],
-  currentChannel: null
+  usersList: [],
+  currentChannel: null,
+  typing: false
 };
 
 export default (state = defaultState, action) => {
@@ -45,6 +48,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         currentChannel: action.payload,
+        usersList: [],
         changeChannelStarted: false
       };
     case CHANGE_CHANNEL_FAILURE:
@@ -105,6 +109,26 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload]
+      };
+    case USER_JOINED:
+      return {
+        ...state,
+        usersList: [...state.usersList, action.payload]
+      };
+    case USER_LEFT:
+      return {
+        ...state,
+        usersList: state.usersList.filter(user => user.id !== action.payload.id)
+      };
+    case TYPING:
+      return {
+        ...state,
+        typing: true
+      };
+    case STOP_TYPING:
+      return {
+        ...state,
+        typing: false
       };
     default:
       return state;

@@ -55,28 +55,41 @@ class ChatApp extends Component {
     if (this.props.username) {
       this.props.connect(this.props.username);
     }
-    this.subscribeToRoom = this.subscribeToRoom.bind(this);
+    this.subscribe = this.subscribe.bind(this);
   }
 
-  subscribeToRoom() {
+  subscribe() {
     if (this.props.user && this.props.currentChannel) {
-      // this.props.user.subscribeToRoom({
-      //   roomId: this.props.currentChannel.id,
-      //   hooks: {
-      //     onNewMessage: message => {
-      //       const {createdAt, senderId, text} = message;
-      //       alert(text);
-      //       if (senderId !== this.props.user.id) {
-      //         this.props.receiveMessage({
-      //           createdAt,
-      //           senderId,
-      //           text
-      //         });
-      //       }
-      //     },
-      //   },
-      //   messageLimit: 0
-      // });
+      if (!this.props.user.roomSubscriptions[this.props.currentChannel.id]) {
+        this.props.user.subscribeToRoom({
+          roomId: this.props.currentChannel.id,
+          hooks: {
+            onNewMessage: message => {
+              const {createdAt, senderId, text, roomId} = message;
+              if (senderId !== this.props.user.id && roomId === this.props.currentChannel.id) {
+                this.props.receiveMessage({
+                  createdAt,
+                  senderId,
+                  text
+                });
+              }
+            },
+            onUserJoined: (user) => {
+              this.props.userJoined(user);
+            },
+            onUserLeft: (user) => {
+              this.props.userLeft(user);
+            },
+            onUserStartedTyping: (user) => {
+              this.props.userStartedTyping(user);
+            },
+            onUserStoppedTyping: (user) => {
+              this.props.userStoppedTyping(user);
+            }
+          },
+          messageLimit: 0
+        });
+      }
     }
   }
 
@@ -103,7 +116,7 @@ class ChatApp extends Component {
       this.props.loadMessages(props.currentChannel.id, session);
     }
 
-    this.subscribeToRoom();
+    this.subscribe();
   }
 
   render() {
@@ -120,7 +133,7 @@ class ChatApp extends Component {
                       name={this.props.name}
                       user={this.props.user}/>
           <MessagesList messages={this.props.messages} user={this.props.user} />
-          <MessageComposer currentChannel={this.props.currentChannel} addMessage={(message) => this.props.addMessage(message, this.getSessionData(this.props))}/>
+          <MessageComposer typing={this.props.typing} currentChannel={this.props.currentChannel} addMessage={(message) => this.props.addMessage(message, this.getSessionData(this.props))}/>
         </div>
       </ChatAppWrapper>
     )

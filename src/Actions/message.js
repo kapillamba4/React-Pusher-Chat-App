@@ -4,7 +4,8 @@ const { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE,
   CHANGE_CHANNEL, CHANGE_CHANNEL_SUCCESS, CHANGE_CHANNEL_FAILURE,
   LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES, LOAD_MESSAGES_FAILURE,
   LOAD_CHANNELS, LOAD_CHANNELS_SUCCESS, LOAD_CHANNELS_FAILURE, CREATE_CHANNEL,
-  CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE } = constants;
+  CREATE_CHANNEL_SUCCESS, CREATE_CHANNEL_FAILURE, RECEIVE_MESSAGE, 
+  USER_JOINED, USER_LEFT, TYPING, STOP_TYPING, RESET_STORE } = constants;
 
 export default {
   receiveMessage: (messageData) => {
@@ -94,6 +95,32 @@ export default {
           console.log(`Error getting join-able rooms: ${err}`);
           dispatch({ type: LOAD_CHANNELS_FAILURE });
         });
+    }
+  },
+  userJoined: (user) => {
+    return (dispatch) => {
+      console.log(user);
+      dispatch({ type: USER_JOINED, payload: user });
+    }
+  },
+  userLeft: (user) => {
+    return (dispatch) => {
+      dispatch({ type: USER_LEFT, payload: user });
+    }
+  },
+  userStartedTyping: (user) => {
+    return (dispatch) => {
+      dispatch({ type: TYPING, payload: user });
+    }
+  },
+  userStoppedTyping: (user) => {
+    return (dispatch) => {
+      dispatch({ type: STOP_TYPING, payload: user });
+    }
+  },
+  resetStore: () => {
+    return (dispatch) => {
+      dispatch({ type: RESET_STORE });
     }
   }
 }

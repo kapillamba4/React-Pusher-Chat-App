@@ -11,18 +11,19 @@ const chatManager = (userId) => (new ChatManager({
   })
 }));
 
-const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CONNECT, DISCONNECT, CONNECTION_REQUEST,
-  CREATE_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER} = constants;
+const { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
+  CONNECT, DISCONNECT, CONNECTION_REQUEST,
+  CREATE_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER, RESET_STORE} = constants;
 
 export default {
-  checkAuth: (dispatch) => {
-    const username = cookie.load('username');
-    dispatch({
-      type: LOGIN_USER_SUCCESS,
-      username
-    });
-
-
+  checkAuth: (username) => {
+    return (dispatch) => {
+      // const username = cookie.load('username');
+      dispatch({
+        type: LOGIN_USER_SUCCESS,
+        username
+      });
+    }
   },
   login: (dispatch) => {
     dispatch({ type: LOGIN_USER });
@@ -63,6 +64,11 @@ export default {
   },
   disconnect: (dispatch) => {
     dispatch({ type: DISCONNECT });
+  },
+  resetStore: () => {
+    return (dispatch) => {
+      dispatch({ type: RESET_STORE });
+    }
   }
 }
 
