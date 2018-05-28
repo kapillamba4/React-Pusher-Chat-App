@@ -45,7 +45,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
             <span>
               {currentChannel.name}:<span id="channelId">{currentChannel.id}</span>
             </span>
-            <Popup
+            {/* <Popup
               trigger={
                 <Icon
                   className="copy-channel-id-chat-header"
@@ -56,7 +56,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
                 />
               }
               content="Copy Channel Id"
-            />
+            /> */}
           </React.Fragment>
         )}
     </div>

@@ -47,13 +47,15 @@ class AuthForm extends Component {
     username: '',
   };
 
-  _createUser(e) {
-    // if (e.keyCode !== 13) {
-    //   e.preventDefault();
-    //   return;
-    // }
+  constructor(props) {
+    super(props);
+    this._createUser = this._createUser.bind(this);
+  }
 
-    this.props.createUser(this.state);
+  _createUser(e) {
+    if (this.state.name.length && this.state.username.length) {
+      this.props.createUser(this.state);
+    }
   }
 
   render() {
@@ -63,7 +65,9 @@ class AuthForm extends Component {
         {/*<div className="app-header">*/}
         {/*React Chat using Pusher SDK*/}
         {/*</div>*/}
-        <div className="app-header">Enter Username & Name to Login</div>
+        <div className="app-header" onKeyPress={this._createUser}>
+          Enter Username & Name to Login
+        </div>
         <Input
           icon="users"
           inverted={true}
@@ -79,7 +83,7 @@ class AuthForm extends Component {
           value={username}
         />
         <Link to="/app">
-          <Button primary className="login-btn" style={{ display: 'block' }} onClick={this._createUser.bind(this)}>
+          <Button primary className="login-btn" style={{ display: 'block' }} onClick={this._createUser}>
             Login
           </Button>
         </Link>
