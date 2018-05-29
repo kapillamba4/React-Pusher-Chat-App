@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import ChatHeader from '../Components/ChatHeader';
 import MessageComposer from '../Components/MessageComposer';
 import ChannelsList from '../Components/ChannelsList';
+import UsersList from '../Components/UsersList';
 import MessagesList from '../Components/MessagesList';
+import UserTyping from '../Components/UserTyping';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actions from '../Actions';
 
 const ChatAppWrapper = styled.div`
   display: flex;
+  justify-content: center;
   width: 1200px;
   max-width: 96%;
   height: 540px;
@@ -19,29 +22,37 @@ const ChatAppWrapper = styled.div`
   margin-right: auto;
   opacity: 0.8;
   z-index: 110;
-  .chat-left-sidebar {
-    width: 300px;
+  .chat-left-sidebar,
+  .chat-right-sidebar {
+    width: 20%;
     height: 100%;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 6px;
     overflow: hidden;
   }
-  .chat-right-sidebar {
-    width: 100%;
+  .chat-user-list {
+    height: calc(100% - 82px);
+  }
+  .chat-user-typing {
+    height: 82px;
+  }
+  .chat-middlebar {
+    width: 60%;
     height: 100%;
     border: 1px solid #ddd;
     border-radius: 6px;
     overflow: hidden;
   }
-  @media (max-width: 767px) {
+  @media (max-width: 880px) {
     .chat-left-sidebar {
-      width: 200px;
+      display: none;
     }
-  }
-  @media (max-width: 480px) {
-    .chat-left-sidebar {
-      width: 140px;
+    .chat-right-sidebar {
+      display: none;
+    }
+    .chat-middlebar {
+      width: 90%;
     }
   }
 `;
@@ -56,6 +67,7 @@ class ChatApp extends Component {
       this.props.connect(this.props.username);
     }
     this.subscribe = this.subscribe.bind(this);
+    this.triggerStartTyping = this.triggerStartTyping.bind(this);
   }
 
   subscribe() {
@@ -78,6 +90,9 @@ class ChatApp extends Component {
               this.props.userJoined(user);
             },
             onUserLeft: user => {
+              this.props.userLeft(user);
+            },
+            onUserWentOffline: user => {
               this.props.userLeft(user);
             },
             onUserStartedTyping: user => {
@@ -123,6 +138,10 @@ class ChatApp extends Component {
     this.subscribe();
   }
 
+  triggerStartTyping() {
+    this.props.user.isTypingIn({ roomId: this.props.currentChannel.id }).catch(console.error);
+  }
+
   render() {
     return (
       <ChatAppWrapper>
@@ -132,7 +151,7 @@ class ChatApp extends Component {
             switchChannel={channelId => this.props.changeChannel(channelId, this.getSessionData(this.props))}
           />
         </div>
-        <div className="chat-right-sidebar">
+        <div className="chat-middlebar">
           <ChatHeader
             createChannel={channelName => this.props.createChannel(channelName, this.getSessionData(this.props))}
             joinChannel={channelId => this.props.changeChannel(channelId, this.getSessionData(this.props))}
@@ -147,10 +166,19 @@ class ChatApp extends Component {
           />
           <MessagesList messages={this.props.messages} user={this.props.user} />
           <MessageComposer
+            triggerStartTyping={this.triggerStartTyping}
             typing={this.props.typing}
             currentChannel={this.props.currentChannel}
             addMessage={message => this.props.addMessage(message, this.getSessionData(this.props))}
           />
+        </div>
+        <div className="chat-right-sidebar">
+          <div className="chat-user-list">
+            <UsersList usersList={this.props.usersList} />
+          </div>
+          <div className="chat-user-typing">
+            <UserTyping user={this.props.userTyping[0]} />
+          </div>
         </div>
       </ChatAppWrapper>
     );

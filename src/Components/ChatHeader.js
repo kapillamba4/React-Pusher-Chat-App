@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Button, Icon, Popup } from 'semantic-ui-react';
 import ChannelModal from './ChannelModal';
@@ -41,10 +41,15 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
       {user && !currentChannel && <span>Creating a channel please wait...</span>}
       {user &&
         currentChannel && (
-          <React.Fragment>
-            <span>
-              {currentChannel.name}:<span id="channelId">{currentChannel.id}</span>
-            </span>
+          <Fragment>
+            <Popup
+              trigger={
+                <span>
+                  {currentChannel.name}:<span id="channelId">{currentChannel.id}</span>
+                </span>
+              }
+              content={`Channel ID: ${currentChannel.id}`}
+            />
             {/* <Popup
               trigger={
                 <Icon
@@ -57,7 +62,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
               }
               content="Copy Channel Id"
             /> */}
-          </React.Fragment>
+          </Fragment>
         )}
     </div>
     <div className="right-chat-header">

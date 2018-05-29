@@ -39,6 +39,9 @@ const AuthFormWrapper = styled.div`
     border: 1px solid #ddd;
     border-radius: 4px;
   }
+  .chat-auth-input {
+    width: 300px;
+  }
 `;
 
 class AuthForm extends Component {
@@ -69,6 +72,7 @@ class AuthForm extends Component {
           Enter Username & Name to Login
         </div>
         <Input
+          className="chat-auth-input"
           icon="users"
           inverted={true}
           onChange={e => this.setState({ name: e.target.value })}
@@ -76,6 +80,7 @@ class AuthForm extends Component {
           value={name}
         />
         <Input
+          className="chat-auth-input"
           icon="users"
           inverted={true}
           onChange={e => this.setState({ username: e.target.value })}

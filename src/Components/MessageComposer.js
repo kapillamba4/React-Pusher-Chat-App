@@ -28,6 +28,7 @@ class MessageComposer extends Component {
 
   _handleChange(e) {
     e.preventDefault();
+    this.props.triggerStartTyping();
     this.setState({
       messageComposed: e.target.value,
     });

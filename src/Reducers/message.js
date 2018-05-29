@@ -34,7 +34,7 @@ const defaultState = {
   channelsList: [],
   usersList: [],
   currentChannel: null,
-  typing: false,
+  userTyping: [],
 };
 
 export default (state = defaultState, action) => {
@@ -65,7 +65,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         currentChannel: action.payload,
-        usersList: [],
+        usersList: action.payload.users.filter(el => el.presence.state === 'online'),
         changeChannelStarted: false,
       };
     case CHANGE_CHANNEL_FAILURE:
@@ -130,7 +130,7 @@ export default (state = defaultState, action) => {
     case USER_JOINED:
       return {
         ...state,
-        usersList: [...state.usersList, action.payload],
+        usersList: [...state.usersList.filter(user => user.id !== action.payload.id), action.payload],
       };
     case USER_LEFT:
       return {
@@ -140,11 +140,13 @@ export default (state = defaultState, action) => {
     case TYPING:
       return {
         ...state,
+        userTyping: [...state.userTyping.filter(user => user.id !== action.payload.id), action.payload],
         typing: true,
       };
     case STOP_TYPING:
       return {
         ...state,
+        userTyping: state.userTyping.filter(user => user.id !== action.payload.id),
         typing: false,
       };
     case RESET_STORE:

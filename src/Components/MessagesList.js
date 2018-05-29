@@ -7,10 +7,11 @@ const MessagesListWrapper = styled.div`
   background-color: #eef5f9;
   .row,
   .noRow {
-    padding: 0 25px;
-    display: flex;
+    padding: 4px 25px;
+    display: block;
     align-items: center;
     border: 1px solid #ddd;
+    word-wrap: break-word;
   }
   .bold {
     font-weight: 600;
@@ -31,7 +32,7 @@ const _rowRenderer = (user, messages, { index, isScrolling, key, style }) =>
     </div>
   ) : (
     <div className="row" key={key} style={style}>
-      <span className="bold">{messages[index].senderId}</span>: {messages[index].text}
+      <b className="bold">{messages[index].senderId}</b>: {messages[index].text}
     </div>
   );
 
@@ -45,7 +46,7 @@ const MessagesList = ({ messages, user }) => (
           height={height}
           overscanRowCount={10}
           rowCount={messages.length}
-          rowHeight={50}
+          rowHeight={100}
           rowRenderer={(...args) => _rowRenderer(user, messages, ...args)}
           noRowsRenderer={_noRowRenderer}
           width={width}

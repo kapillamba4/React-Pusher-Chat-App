@@ -6,7 +6,7 @@ const ChannelsListWrapper = styled.div`
   height: 100%;
   .row,
   .noRow {
-    padding: 0 25px;
+    padding: 0 12px;
     font-size: 1.25rem;
     display: flex;
     align-items: center;
@@ -49,12 +49,12 @@ const ChannelsList = ({ channelsList, switchChannel }) => (
       {({ height, width }) => (
         <List
           height={height}
+          width={width}
           overscanRowCount={10}
           rowCount={channelsList.length}
           rowHeight={50}
           rowRenderer={(...args) => _rowRenderer(channelsList, switchChannel, ...args)}
           noRowsRenderer={_noRowRenderer}
-          width={width}
         />
       )}
     </AutoSizer>

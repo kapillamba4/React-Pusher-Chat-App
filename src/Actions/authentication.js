@@ -45,19 +45,32 @@ export default {
     return dispatch => {
       dispatch({ type: CREATE_USER });
 
+      const createUser = () => {
+        axios
+          .post(`${BASE_SERVER_URL}create/user`, {
+            id: username,
+            name: name,
+          })
+          .then(response => {
+            console.log(response);
+            dispatch({ type: CREATE_USER_SUCCESS, payload: { name, username } });
+          })
+          .catch(error => {
+            console.log(error);
+            if (error.response.data.error === 'services/chatkit/user_already_exists') {
+              dispatch({ type: CREATE_USER_SUCCESS, payload: { name, username } });
+            } else {
+              dispatch({ type: CREATE_USER_FAILURE });
+            }
+          });
+      };
+
       axios
-        .post(`${BASE_SERVER_URL}create/user`, {
+        .post(`${BASE_SERVER_URL}delete/user`, {
           id: username,
-          name: name,
         })
-        .then(response => {
-          console.log(response);
-          dispatch({ type: CREATE_USER_SUCCESS, payload: { name, username } });
-        })
-        .catch(error => {
-          console.error(error);
-          dispatch({ type: CREATE_USER_FAILURE });
-        });
+        .then(createUser)
+        .catch(createUser);
     };
   },
   connect: userId => {

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { List, AutoSizer } from 'react-virtualized';
 
-const ChannelsListWrapper = styled.div`
+const UsersListWrapper = styled.div`
   height: 100%;
   .row,
   .noRow {
-    padding: 0 25px;
+    padding: 0 12px;
     font-size: 1.25rem;
     display: flex;
     align-items: center;
@@ -37,14 +37,14 @@ const _rowRenderer = (usersList, { index, isScrolling, key, style }) =>
     </div>
   ) : (
     <div className="row" key={key} style={style}>
-      {usersList[index].name}: {usersList[index].id}
+      {usersList[index].name}@{usersList[index].id}
     </div>
   );
 
-const _noRowRenderer = () => <div className="noRow bold">No Channels Found</div>;
+const _noRowRenderer = () => <div className="noRow bold">No Users Found</div>;
 
 const UsersList = ({ usersList }) => (
-  <ChannelsListWrapper>
+  <UsersListWrapper>
     <AutoSizer>
       {({ height, width }) => (
         <List
@@ -58,7 +58,7 @@ const UsersList = ({ usersList }) => (
         />
       )}
     </AutoSizer>
-  </ChannelsListWrapper>
+  </UsersListWrapper>
 );
 
 export default UsersList;
