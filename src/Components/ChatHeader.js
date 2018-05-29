@@ -32,6 +32,19 @@ const ChatHeaderWrapper = styled.div`
     color: #ddd;
     font-style: italic;
   }
+  @media (max-width: 880px) {
+    height: 100px;
+    .right-chat-header {
+      margin-right: auto;
+    }
+    .user-avatar-chat-header {
+      display: none !important;
+    }
+    .ui.primary.button {
+      margin: 0 auto;
+    }
+    flex-direction: column;
+  }
 `;
 
 const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username, name, resetStore }) => (
@@ -90,7 +103,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
         />
       )}
       {user && (
-        <Button primary onClick={resetStore}>
+        <Button primary className="chat-logout-btn" onClick={resetStore}>
           Logout
         </Button>
       )}

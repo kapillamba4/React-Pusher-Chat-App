@@ -17,11 +17,14 @@ const MessagesListWrapper = styled.div`
     font-weight: 600;
   }
   .noRow {
-    height: 50px;
+    height: 100px;
   }
   .isScrollingPlaceholder {
     color: #ddd;
     font-style: italic;
+  }
+  @media (max-width: 880px) {
+    height: calc(100% - 182px);
   }
 `;
 

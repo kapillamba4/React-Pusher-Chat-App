@@ -140,6 +140,9 @@ class ChatApp extends Component {
 
   triggerStartTyping() {
     this.props.user.isTypingIn({ roomId: this.props.currentChannel.id }).catch(console.error);
+    this.props.userStartedTyping(this.props.user);
+    clearTimeout(this.userTypingId);
+    this.userTypingId = setTimeout(() => this.props.userStoppedTyping(this.props.user), 500);
   }
 
   render() {

@@ -4,7 +4,7 @@ import { Input, Button } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import actions from '../Actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const AuthFormWrapper = styled.div`
   position: absolute;
@@ -53,11 +53,19 @@ class AuthForm extends Component {
   constructor(props) {
     super(props);
     this._createUser = this._createUser.bind(this);
+    this._keyPress = this._keyPress.bind(this);
   }
 
-  _createUser(e) {
+  _createUser() {
     if (this.state.name.length && this.state.username.length) {
       this.props.createUser(this.state);
+    }
+  }
+
+  _keyPress(e) {
+    if (e.key === 'Enter') {
+      this.props.createUser(this.state);
+      this.props.history.push('/app');
     }
   }
 
@@ -68,12 +76,11 @@ class AuthForm extends Component {
         {/*<div className="app-header">*/}
         {/*React Chat using Pusher SDK*/}
         {/*</div>*/}
-        <div className="app-header" onKeyPress={this._createUser}>
-          Enter Username & Name to Login
-        </div>
+        <div className="app-header">Enter Username & Name to Login</div>
         <Input
           className="chat-auth-input"
           icon="users"
+          onKeyPress={this._keyPress}
           inverted={true}
           onChange={e => this.setState({ name: e.target.value })}
           placeholder="Enter your name"
@@ -83,6 +90,7 @@ class AuthForm extends Component {
           className="chat-auth-input"
           icon="users"
           inverted={true}
+          onKeyPress={this._keyPress}
           onChange={e => this.setState({ username: e.target.value })}
           placeholder="Enter username"
           value={username}
@@ -100,7 +108,9 @@ class AuthForm extends Component {
 const mapStateToProps = state => ({ ...state.authentication });
 const matchDispatchToProps = dispatch => bindActionCreators({ ...actions.authentication }, dispatch);
 
-export default connect(
-  mapStateToProps,
-  matchDispatchToProps,
-)(AuthForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    matchDispatchToProps,
+  )(AuthForm),
+);

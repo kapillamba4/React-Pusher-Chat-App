@@ -49,11 +49,12 @@ class MessageComposer extends Component {
   }
 
   render() {
+    const placeHolder = this.props.currentChannel ? 'Compose' : 'Initializing....';
     return (
       <MessageComposerWrapper>
         <Form>
           <TextArea
-            placeholder="Compose"
+            placeholder={placeHolder}
             disabled={!this.props.currentChannel}
             style={{ height: 82, width: 'calc(100% - 80px)', borderRadius: 4, resize: 'none' }}
             value={this.state.messageComposed}
