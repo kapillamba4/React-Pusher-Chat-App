@@ -6,7 +6,6 @@ import { ChatManager, TokenProvider } from '@pusher/chatkit';
 const {
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILURE,
   CONNECT,
   DISCONNECT,
   CONNECTION_REQUEST,

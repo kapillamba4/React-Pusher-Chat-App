@@ -6,12 +6,7 @@ cache:
   yarn: true
   directories:
     - node_modules
-env:
-before_deploy:
+install:
   - yarn build
-deploy:
-  - edge: true
-    skip_cleanup: true
-    on:
-      branch: master
+
 
