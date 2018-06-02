@@ -1,4 +1,4 @@
-import cookie from 'react-cookies';
+// import cookie from 'react-cookies';
 import constants from '../Constants/index';
 import axios from 'axios';
 import { ChatManager, TokenProvider } from '@pusher/chatkit';
@@ -10,8 +10,8 @@ const {
   CONNECT,
   DISCONNECT,
   CONNECTION_REQUEST,
-  CREATE_USER_FAILURE,
   CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE,
   CREATE_USER,
   RESET_STORE,
   INSTANCE_LOCATOR,

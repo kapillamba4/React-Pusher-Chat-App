@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Button, Icon, Popup } from 'semantic-ui-react';
 import ChannelModal from './ChannelModal';
-import { Link } from 'react-router-dom';
 
 const ChatHeaderWrapper = styled.div`
   height: 58px;

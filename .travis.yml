@@ -1,0 +1,17 @@
+sudo: true
+language: node_js
+node_js:
+- '10'
+cache:
+  yarn: true
+  directories:
+    - node_modules
+env:
+before_deploy:
+  - yarn build
+deploy:
+  - edge: true
+    skip_cleanup: true
+    on:
+      branch: master
+

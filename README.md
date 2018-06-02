@@ -1,5 +1,12 @@
-### Install
+# React Pusher Chat App
 
+![Demo Preview](https://i.imgur.com/ayB6YTm.png)
+[![Build Status](https://travis-ci.org/kapillamba4/React-Pusher-Chat-App.svg?branch=master)](https://travis-ci.org/kapillamba4/React-Pusher-Chat-App)
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://react-chat-app-1.surge.sh)
+
+### Setup
+
+Clone this repo to your desktop
 Run the following commands to install the app:
 
 ```
@@ -29,3 +36,9 @@ yarn build
 #### Demo
 
 [https://react-chat-app-1.surge.sh](https://react-chat-app-1.surge.sh)
+
+## License
+
+> You can check out the full license [here](https://github.com/kapillamba4/React-Pusher-Chat-App/blob/master/LICENSE)
+
+This project is licensed under the terms of the **MIT** license.
