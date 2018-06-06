@@ -32,8 +32,8 @@ export default {
   USER_JOINED: 'USER_JOINED',
   USER_LEFT: 'USER_LEFT',
   RESET_STORE: 'RESET_STORE',
-  INSTANCE_LOCATOR: 'v1:us1:3d6a9494-51ec-4bd8-98b7-237759fd1b45',
+  INSTANCE_LOCATOR: 'v1:us1:d64a604b-9c4d-497b-ae8e-01484c879f2e',
   TOKEN_PROVIDER_URL:
-    'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/3d6a9494-51ec-4bd8-98b7-237759fd1b45/token',
+    'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/d64a604b-9c4d-497b-ae8e-01484c879f2e/token',
   BASE_SERVER_URL: 'https://react-test-1.glitch.me/',
 };
