@@ -10,9 +10,11 @@ Clone this repo to your desktop
 Run the following commands to install the app:
 
 ```
-git clone https://github.com/kapillamba4/react-test-1.git
-cd react-test-1
-yarn install
+git clone https://github.com/kapillamba4/react-test-1.git  
+cd react-test-1  
+yarn install  
+Setup a basic Node server on glitch with server.js file and appropriate environment variables (INSTANCE LOCATOR and KEY)  
+Change INSTANCE_LOCATOR, BASE_SERVER_URL and TOKEN_PROVIDER_URL in src/Constants/index.js  
 ```
 
 #### Run in development
