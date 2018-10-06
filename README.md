@@ -37,7 +37,7 @@ yarn build
 
 #### Demo
 
-[https://react-chat-app-1.surge.sh](https://react-chat-app-1.surge.sh)
+[https://react-pusher-chat-app.netlify.com](https://react-pusher-chat-app.netlify.com)
 
 ## License
 

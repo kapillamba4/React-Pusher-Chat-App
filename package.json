@@ -1,7 +1,6 @@
 {
   "name": "react-pusher-chat-app",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@pusher/chatkit": "^0.7.12",
     "autoprefixer": "7.1.6",
