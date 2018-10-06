@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import ChatHeader from '../Components/ChatHeader';
-import MessageComposer from '../Components/MessageComposer';
-import ChannelsList from '../Components/ChannelsList';
-import UsersList from '../Components/UsersList';
-import MessagesList from '../Components/MessagesList';
-import UserTyping from '../Components/UserTyping';
+import ChatHeader from '../components/ChatHeader';
+import MessageComposer from '../components/MessageComposer';
+import ChannelsList from '../components/ChannelsList';
+import UsersList from '../components/UsersList';
+import MessagesList from '../components/MessagesList';
+import UserTyping from '../components/UserTyping';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import actions from '../Actions';
+import actions from '../actions';
 
 const ChatAppWrapper = styled.div`
   display: flex;
@@ -177,7 +177,7 @@ class ChatApp extends Component {
         </div>
         <div className="chat-right-sidebar">
           <div className="chat-user-list">
-            <UsersList usersList={this.props.usersList} />
+            <UsersList user={this.props.user} usersList={this.props.usersList} />
           </div>
           <div className="chat-user-typing">
             <UserTyping user={this.props.userTyping[0]} />

@@ -8,3 +8,7 @@ body {
   overflow-x: hidden;
   font-family: 'Lato', 'Open Sans', sans-serif;
 }
+
+.ReactVirtualized__List {
+  outline: none;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Input, Button } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
-import actions from '../Actions';
+import actions from '../actions';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -40,7 +40,15 @@ const AuthFormWrapper = styled.div`
     border-radius: 4px;
   }
   .chat-auth-input {
-    width: 300px;
+    width: calc(100% - 40px);
+  }
+  @media (max-width: 399px) {
+    .chat-auth-input {
+      width: 300px;
+    }
+    .app-header {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -79,7 +87,8 @@ class AuthForm extends Component {
         <div className="app-header">Enter Username & Name to Login</div>
         <Input
           className="chat-auth-input"
-          icon="users"
+          size="big"
+          // icon="users"
           onKeyPress={this._keyPress}
           inverted={true}
           onChange={e => this.setState({ name: e.target.value })}
@@ -88,7 +97,8 @@ class AuthForm extends Component {
         />
         <Input
           className="chat-auth-input"
-          icon="users"
+          size="big"
+          // icon="users"
           inverted={true}
           onKeyPress={this._keyPress}
           onChange={e => this.setState({ username: e.target.value })}
@@ -96,7 +106,7 @@ class AuthForm extends Component {
           value={username}
         />
         <Link to="/app">
-          <Button primary className="login-btn" style={{ display: 'block' }} onClick={this._createUser}>
+          <Button primary size="large" className="login-btn" style={{ display: 'block' }} onClick={this._createUser}>
             Login
           </Button>
         </Link>

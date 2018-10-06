@@ -9,8 +9,10 @@ const ChatHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 6px;
-  .ui.primary.button {
+  .ui.primary.button,
+  .ui.primary.button:hover {
     margin: 0 2px;
+    padding: 10px 16px;
   }
   .right-chat-header {
     margin-left: auto;
@@ -43,6 +45,12 @@ const ChatHeaderWrapper = styled.div`
       margin: 0 auto;
     }
     flex-direction: column;
+    .right-chat-header {
+      height: 60px;
+    }
+    .right-chat-header > .ui.primary.button {
+      margin: 10px;
+    }
   }
 `;
 
@@ -106,7 +114,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
           Logout
         </Button>
       )}
-      {user && (
+      {/* {user && (
         <Popup
           trigger={
             <Icon
@@ -124,7 +132,7 @@ const ChatHeader = ({ user, currentChannel, createChannel, joinChannel, username
             </span>
           }
         />
-      )}
+      )} */}
     </div>
   </ChatHeaderWrapper>
 );

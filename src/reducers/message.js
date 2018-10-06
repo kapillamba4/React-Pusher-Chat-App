@@ -1,4 +1,4 @@
-import constants from '../Constants';
+import constants from '../constants';
 
 const {
   ADD_MESSAGE,

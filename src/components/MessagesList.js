@@ -1,45 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
 import { List, AutoSizer } from 'react-virtualized';
+import { CellMeasurer, CellMeasurerCache } from 'react-virtualized';
+
+const cache = new CellMeasurerCache({
+  defaultHeight: 60,
+  fixedWidth: true,
+});
 
 const MessagesListWrapper = styled.div`
   height: calc(100% - 140px);
   background-color: #eef5f9;
   .row,
   .noRow {
-    padding: 4px 25px;
+    padding: 4px 16px;
     display: block;
     align-items: center;
-    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     word-wrap: break-word;
   }
   .bold {
     font-weight: 600;
   }
   .noRow {
-    height: 100px;
-  }
-  .isScrollingPlaceholder {
-    color: #ddd;
-    font-style: italic;
+    height: 60px;
   }
   @media (max-width: 880px) {
     height: calc(100% - 182px);
   }
 `;
 
-const _rowRenderer = (user, messages, { index, isScrolling, key, style }) =>
-  isScrolling ? (
-    <div className="row isScrollingPlaceholder" key={key} style={style}>
-      Scrolling...
-    </div>
-  ) : (
-    <div className="row" key={key} style={style}>
-      <b className="bold">{messages[index].senderId}</b>: {messages[index].text}
-    </div>
-  );
+const _rowRenderer = (user, messages, { index, key, parent, style }) => (
+  <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
+    {({ measure }) => (
+      <div className="row" key={key} style={style}>
+        <b className="bold">{messages[index].senderId}</b>: {messages[index].text}
+      </div>
+    )}
+  </CellMeasurer>
+);
 
-const _noRowRenderer = () => <div className="noRow bold">No Messages Found</div>;
+const _noRowRenderer = () => <div className="noRow bold">No Messages</div>;
 
 const MessagesList = ({ messages, user }) => (
   <MessagesListWrapper>
@@ -49,7 +50,8 @@ const MessagesList = ({ messages, user }) => (
           height={height}
           overscanRowCount={10}
           rowCount={messages.length}
-          rowHeight={100}
+          deferredMeasurementCache={cache}
+          rowHeight={cache.rowHeight}
           rowRenderer={(...args) => _rowRenderer(user, messages, ...args)}
           noRowsRenderer={_noRowRenderer}
           width={width}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ChatApp from './Containers/ChatApp';
+import ChatApp from './containers/ChatApp';
 import styled from 'styled-components';
-import AuthForm from './Containers/AuthForm';
+import AuthForm from './containers/AuthForm';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 const AppWrapper = styled.div`

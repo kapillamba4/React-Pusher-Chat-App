@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { List, AutoSizer } from 'react-virtualized';
+import { Label } from 'semantic-ui-react';
 
 const UsersListWrapper = styled.div`
   height: 100%;
@@ -10,9 +11,9 @@ const UsersListWrapper = styled.div`
     font-size: 1.25rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     text-align: center;
-    border-radius: 6px;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     &:hover {
       cursor: pointer;
       background-color: #039be5;
@@ -24,26 +25,18 @@ const UsersListWrapper = styled.div`
   .noRow {
     height: 50px;
   }
-  .isScrollingPlaceholder {
-    color: #ddd;
-    font-style: italic;
-  }
 `;
 
-const _rowRenderer = (usersList, { index, isScrolling, key, style }) =>
-  isScrolling ? (
-    <div className="row isScrollingPlaceholder" key={key} style={style}>
-      Scrolling...
-    </div>
-  ) : (
-    <div className="row" key={key} style={style}>
-      {usersList[index].name}@{usersList[index].id}
-    </div>
-  );
+const _rowRenderer = (user, usersList, { index, key, style }) => (
+  <div className="row" key={key} style={style}>
+    {usersList[index].name}@{usersList[index].id}
+    {user.id === usersList[index].id && <Label>YOU</Label>}
+  </div>
+);
 
 const _noRowRenderer = () => <div className="noRow bold">No Users Found</div>;
 
-const UsersList = ({ usersList }) => (
+const UsersList = ({ user, usersList }) => (
   <UsersListWrapper>
     <AutoSizer>
       {({ height, width }) => (
@@ -52,7 +45,7 @@ const UsersList = ({ usersList }) => (
           overscanRowCount={10}
           rowCount={usersList.length}
           rowHeight={50}
-          rowRenderer={(...args) => _rowRenderer(usersList, ...args)}
+          rowRenderer={(...args) => _rowRenderer(user, usersList, ...args)}
           noRowsRenderer={_noRowRenderer}
           width={width}
         />
