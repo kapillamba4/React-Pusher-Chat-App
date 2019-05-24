@@ -10,13 +10,18 @@
     core-js "^2.5.6"
     regenerator-runtime "^0.11.1"
 
-"@pusher/chatkit@^0.7.12":
-  version "0.7.12"
-  resolved "https://registry.yarnpkg.com/@pusher/chatkit/-/chatkit-0.7.12.tgz#19904ff9f8e1cdb2b99553271ad03807105fa590"
-  integrity sha512-CNV4cAnoaC+sRbINCE/zN6iCHHl5FBRVXxhZ0svmbU5VsSnl7YgI9sV3BcbVgP359SS/VZ5/CkZCgUMgagAZcw==
+"@pusher/chatkit-client@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@pusher/chatkit-client/-/chatkit-client-1.5.0.tgz#b75c0fa3a33effb679376b7e62969e709ab046dd"
+  integrity sha512-wnxRZA2XZ+WVuavtO12l5CxwyKe49bgBoicICGIr4itlpLiZm0H4+02nKYE1Agy+CwesDcVgFSYdPYWiGS3FFA==
   dependencies:
-    pusher-platform "^0.15.1"
+    "@pusher/platform" "^0.16.1"
     ramda "^0.25.0"
+
+"@pusher/platform@^0.16.1":
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/@pusher/platform/-/platform-0.16.2.tgz#d6493b171903dd42a9fcd650a90d352af5e344c2"
+  integrity sha512-i8FHrurPFs2nmTDFHP1OMcFvtmZFGLUtOj46Ick/KOopTWnVv1FJkruMIV+wahP4mKl9e8XNzqe62HEXDh/n+A==
 
 abab@^1.0.3:
   version "1.0.4"
@@ -6472,11 +6477,6 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
-
-pusher-platform@^0.15.1:
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/pusher-platform/-/pusher-platform-0.15.1.tgz#e8ff7e59f8440ddae6dd71a50e4796400b7ec62f"
-  integrity sha512-6nBl32QylrDshM5IFD8sXeJtJ0dv2GOp5S0uK/A+AKWV2G9wDu0dAac5wbQgD0kcdrk0/pNjH/Fn+iblJ0ekNw==
 
 q@^1.1.2:
   version "1.5.1"

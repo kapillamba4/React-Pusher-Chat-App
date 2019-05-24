@@ -29,8 +29,7 @@ const UsersListWrapper = styled.div`
 
 const _rowRenderer = (user, usersList, { index, key, style }) => (
   <div className="row" key={key} style={style}>
-    {usersList[index].name}@{usersList[index].id}
-    {user.id === usersList[index].id && <Label>YOU</Label>}
+    {usersList[index]}
   </div>
 );
 

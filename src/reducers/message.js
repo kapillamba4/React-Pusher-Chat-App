@@ -62,10 +62,13 @@ export default (state = defaultState, action) => {
         changeChannelStarted: true,
       };
     case CHANGE_CHANNEL_SUCCESS:
+      // console.log(Object.entries(action.payload.userStore.presenceStore).filter(user => user[1] === 'online'));
       return {
         ...state,
         currentChannel: action.payload,
-        usersList: action.payload.users.filter(el => el.presence.state === 'online'),
+        // usersList: Object.entries(action.payload.userStore.presenceStore)
+        //   .filter(user => user[1] === 'online')
+        //   .map(el => el[0]),
         changeChannelStarted: false,
       };
     case CHANGE_CHANNEL_FAILURE:
@@ -130,12 +133,12 @@ export default (state = defaultState, action) => {
     case USER_JOINED:
       return {
         ...state,
-        usersList: [...state.usersList.filter(user => user.id !== action.payload.id), action.payload],
+        usersList: [...state.usersList.filter(user => user.id !== action.payload.id), action.payload.id],
       };
     case USER_LEFT:
       return {
         ...state,
-        usersList: state.usersList.filter(user => user.id !== action.payload.id),
+        usersList: state.usersList.filter(user => user.id !== action.payload),
       };
     case TYPING:
       return {

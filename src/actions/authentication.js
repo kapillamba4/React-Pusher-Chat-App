@@ -1,7 +1,7 @@
 // import cookie from 'react-cookies';
 import constants from '../constants';
 import axios from 'axios';
-import { ChatManager, TokenProvider } from '@pusher/chatkit';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
 
 const {
   LOGIN_USER,

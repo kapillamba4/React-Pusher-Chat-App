@@ -91,7 +91,7 @@ export default {
       dispatch({ type: CHANGE_CHANNEL });
       user
         .joinRoom({
-          roomId: +newRoom,
+          roomId: newRoom,
         })
         .then(room => {
           console.log(`Joined room with ID: ${newRoom}`);
